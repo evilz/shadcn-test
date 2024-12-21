@@ -6,8 +6,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar"
+import { AppSidebar } from "~/components/app-sidebar"
 
 import "./tailwind.css";
+
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,7 +35,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="relative flex min-h-svh flex-1 flex-col bg-background peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow">
+
+            {children}
+          </main>
+        </SidebarProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
